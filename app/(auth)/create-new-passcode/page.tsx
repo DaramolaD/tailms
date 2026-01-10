@@ -11,6 +11,7 @@ export default function CreateNewPasscodePage() {
   });
   const [showNewPasscode, setShowNewPasscode] = useState(false);
   const [showConfirmPasscode, setShowConfirmPasscode] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(true);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -21,7 +22,8 @@ export default function CreateNewPasscodePage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
+    // Handle form submission - set success state
+    setIsSuccess(true);
   };
 
   return (
@@ -42,42 +44,44 @@ export default function CreateNewPasscodePage() {
       </div>
 
       {/* Right Column - White background with create passcode form */}
-      <div className="flex w-full flex-col bg-white px-6 py-12 lg:w-3/5">
+      <div className="flex w-full flex-col items-center justify-center bg-white px-6 py-12 lg:w-3/5">
         <div className="mx-auto w-full max-w-md">
-          {/* Back Link */}
-          <Link
-            href="/reset-passcode"
-            className="mb-8 inline-flex items-center text-sm text-gray-800 hover:text-orange-600"
-          >
-            <svg
-              className="mr-2 h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Back
-          </Link>
+          {!isSuccess ? (
+            <>
+              {/* Back Link */}
+              <Link
+                href="/reset-passcode"
+                className="mb-8 inline-flex items-center text-sm text-gray-800 hover:text-orange-600"
+              >
+                <svg
+                  className="mr-2 h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+                Back
+              </Link>
 
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="mb-2 text-3xl font-bold text-gray-800">
-              Create new passcode
-            </h1>
-            <p className="text-sm text-gray-600">
-              Lorem ipsum dolor sit amet consectetur. Aliquam nunc ipsum senectus
-              varius dui eu fusce.
-            </p>
-          </div>
+              {/* Header */}
+              <div className="mb-8">
+                <h1 className="mb-2 text-3xl font-bold text-gray-800">
+                  Create new passcode
+                </h1>
+                <p className="text-sm text-gray-600">
+                  Lorem ipsum dolor sit amet consectetur. Aliquam nunc ipsum senectus
+                  varius dui eu fusce.
+                </p>
+              </div>
 
-          {/* Create Passcode Form */}
-          <form className="space-y-6" onSubmit={handleSubmit}>
+              {/* Create Passcode Form */}
+              <form className="space-y-6" onSubmit={handleSubmit}>
             {/* New Passcode Field */}
             <div>
               <label
@@ -206,14 +210,51 @@ export default function CreateNewPasscodePage() {
               </div>
             </div>
 
-            {/* Reset Passcode Button */}
-            <button
-              type="submit"
-              className="w-full rounded-lg bg-orange-500 px-4 py-3 font-bold text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
-            >
-              Reset passcode
-            </button>
-          </form>
+                {/* Reset Passcode Button */}
+                <button
+                  type="submit"
+                  className="w-full rounded-lg bg-orange-500 px-4 py-3 font-bold text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+                >
+                  Reset passcode
+                </button>
+              </form>
+            </>
+          ) : (
+            /* Success State */
+            <div className="flex flex-col items-center text-center">
+              {/* Success Icon with Confetti */}
+              <div className="relative mb-6">
+                {/* Success icon from icons folder */}
+                <div className="relative flex items-center justify-center">
+                  <Image
+                    src="/icons/sucessIcon.svg"
+                    alt="Success"
+                    width={80}
+                    height={80}
+                    className="min-h-[191px]! min-w-[205px]!"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Success Message */}
+              <h1 className="mb-4 text-3xl font-bold text-gray-800">
+                Passcode reset successfully!
+              </h1>
+              <p className="mb-8 text-sm text-gray-600">
+                Lorem ipsum dolor sit amet consectetur. Aliquam nunc ipsum senectus
+                varius dui eu fusce.
+              </p>
+
+              {/* Back to Sign In Button */}
+              <Link
+                href="/sign-in"
+                className="w-full rounded-lg bg-orange-500 px-4 py-3 font-bold text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+              >
+                Back to Sign In
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

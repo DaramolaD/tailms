@@ -4,12 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 export default function ResetPasscodePage() {
+  const router = useRouter();
   const [studentId, setStudentId] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
+    // Handle form submission - navigate to create new passcode page
+    router.push("/create-new-passcode");
   };
 
   return (
