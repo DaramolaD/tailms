@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -22,6 +23,12 @@ export default function Home() {
         <p className="mt-4 max-w-2xl text-base text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
           Empowering youth through tech education. Every child deserves a second chance.
         </p>
+        <Link
+          href="/select-role"
+          className="mt-8 inline-block rounded-lg bg-orange-500 px-8 py-3 font-bold text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+        >
+          Get Started
+        </Link>
       </main>
     </div>
   );

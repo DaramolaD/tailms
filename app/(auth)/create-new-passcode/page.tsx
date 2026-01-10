@@ -4,15 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function SignUpPage() {
+export default function CreateNewPasscodePage() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    passcode: "",
+    newPasscode: "",
     confirmPasscode: "",
   });
-  const [showPasscode, setShowPasscode] = useState(false);
+  const [showNewPasscode, setShowNewPasscode] = useState(false);
   const [showConfirmPasscode, setShowConfirmPasscode] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,13 +41,34 @@ export default function SignUpPage() {
         </div>
       </div>
 
-      {/* Right Column - White background with sign-up form */}
-      <div className="flex w-full flex-col items-center justify-center bg-white px-6 py-12 lg:w-3/5">
-        <div className="w-full max-w-md">
+      {/* Right Column - White background with create passcode form */}
+      <div className="flex w-full flex-col bg-white px-6 py-12 lg:w-3/5">
+        <div className="mx-auto w-full max-w-md">
+          {/* Back Link */}
+          <Link
+            href="/reset-passcode"
+            className="mb-8 inline-flex items-center text-sm text-gray-800 hover:text-orange-600"
+          >
+            <svg
+              className="mr-2 h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back
+          </Link>
+
           {/* Header */}
           <div className="mb-8">
             <h1 className="mb-2 text-3xl font-bold text-gray-800">
-              Create your account 🚀
+              Create new passcode
             </h1>
             <p className="text-sm text-gray-600">
               Lorem ipsum dolor sit amet consectetur. Aliquam nunc ipsum senectus
@@ -58,106 +76,33 @@ export default function SignUpPage() {
             </p>
           </div>
 
-          {/* Sign-up Form */}
+          {/* Create Passcode Form */}
           <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* First Name Field */}
+            {/* New Passcode Field */}
             <div>
               <label
-                htmlFor="firstName"
+                htmlFor="newPasscode"
                 className="mb-2 block text-sm font-medium text-gray-800"
               >
-                First Name
-              </label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder="Enter your first name"
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
-              />
-            </div>
-
-            {/* Last Name Field */}
-            <div>
-              <label
-                htmlFor="lastName"
-                className="mb-2 block text-sm font-medium text-gray-800"
-              >
-                Last Name
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder="Enter your last name"
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
-              />
-            </div>
-
-            {/* Date of Birth Field */}
-            <div>
-              <label
-                htmlFor="dateOfBirth"
-                className="mb-2 block text-sm font-medium text-gray-800"
-              >
-                Date of Birth
+                New Passcode
               </label>
               <div className="relative">
                 <input
-                  type="date"
-                  id="dateOfBirth"
-                  name="dateOfBirth"
-                  value={formData.dateOfBirth}
-                  onChange={handleChange}
-                  className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 pr-12 text-gray-800 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
-                />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-                  <svg
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            {/* Passcode Field */}
-            <div>
-              <label
-                htmlFor="passcode"
-                className="mb-2 block text-sm font-medium text-gray-800"
-              >
-                Passcode
-              </label>
-              <div className="relative">
-                <input
-                  type={showPasscode ? "text" : "password"}
-                  id="passcode"
-                  name="passcode"
-                  value={formData.passcode}
+                  type={showNewPasscode ? "text" : "password"}
+                  id="newPasscode"
+                  name="newPasscode"
+                  value={formData.newPasscode}
                   onChange={handleChange}
                   placeholder="Enter your passcode"
                   className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 pr-12 text-gray-800 placeholder:text-gray-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
                 />
                 <button
                   type="button"
-                  onClick={() => setShowPasscode(!showPasscode)}
+                  onClick={() => setShowNewPasscode(!showNewPasscode)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                  aria-label={showPasscode ? "Hide password" : "Show password"}
+                  aria-label={showNewPasscode ? "Hide password" : "Show password"}
                 >
-                  {showPasscode ? (
+                  {showNewPasscode ? (
                     <svg
                       className="h-5 w-5"
                       fill="none"
@@ -261,39 +206,17 @@ export default function SignUpPage() {
               </div>
             </div>
 
-            {/* Forgot Passcode Link */}
-            <div className="flex justify-end">
-              <Link
-                href="/reset-passcode"
-                className="text-sm text-gray-700 hover:text-orange-600"
-              >
-                I forgot my passcode
-              </Link>
-            </div>
-
-            {/* Sign Up Button */}
+            {/* Reset Passcode Button */}
             <button
               type="submit"
               className="w-full rounded-lg bg-orange-500 px-4 py-3 font-bold text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
             >
-              Create Account
+              Reset passcode
             </button>
           </form>
-
-          {/* Sign In Link */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
-              Have an account?{" "}
-              <Link
-                href="/sign-in"
-                className="font-medium text-gray-800 hover:text-orange-600"
-              >
-                Sign in
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>
   );
 }
+
