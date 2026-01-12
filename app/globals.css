@@ -8,6 +8,7 @@
   /* Gray Scale */
   --gray-01: #303030;
   --gray-02: #707070;
+  --gray-03: #909090;
   --gray-04: #BCBCBC;
   --gray-06: #F9F9F9;
   --gray-50: #f9fafb;
@@ -101,6 +102,7 @@
   /* Gray Scale */
   --color-gray-01: var(--gray-01);
   --color-gray-02: var(--gray-02);
+  --color-gray-03: var(--gray-03);
   --color-gray-04: var(--gray-04);
   --color-gray-06: var(--gray-06);
   --color-gray-50: var(--gray-50);
@@ -202,6 +204,9 @@ body {
 }
 .gray-02 {
   color: var(--gray-02);
+}
+.gray-03 {
+  color: var(--gray-03);
 }
 .gray-04 {
   color: var(--gray-04);
