@@ -3,14 +3,40 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 function SignInForm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const role = searchParams.get("role") || "student"; // Default to student if no role specified
   const [showPassword, setShowPassword] = useState(false);
   const [studentId, setStudentId] = useState("");
   const [passcode, setPasscode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Basic validation
+    if (!studentId || !passcode) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    setIsLoading(true);
+
+    // Simulate API call - Replace with actual authentication logic
+    setTimeout(() => {
+      setIsLoading(false);
+      toast.success("Login successful! Welcome back!");
+      
+      // Redirect to student dashboard after a brief delay
+      setTimeout(() => {
+        router.push("/student");
+      }, 500);
+    }, 1000);
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -47,7 +73,7 @@ function SignInForm() {
           </div>
 
           {/* Login Form */}
-          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Student ID Field */}
             <div>
               <label
@@ -141,9 +167,10 @@ function SignInForm() {
             {/* Login Button */}
             <button
               type="submit"
-              className="w-full rounded-lg bg-orange-500 px-4 py-3 font-bold text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+              disabled={isLoading}
+              className="w-full rounded-lg bg-orange-500 px-4 py-3 font-bold text-white transition-colors hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Log In
+              {isLoading ? "Logging in..." : "Log In"}
             </button>
           </form>
 
