@@ -31,10 +31,10 @@ export default function AssignmentCard({
 
   return (
     <div
-      className={`flex flex-col md:flex-row cursor-pointer md:items-center gap-4 rounded-lg p-4 transition-transform hover:bg-gray-06`}
+      className={`flex flex-col justify-between md:flex-row cursor-pointer items-end md:items-center gap-4 rounded-lg p-4 transition-transform hover:bg-gray-06`}
       onClick={onClick}
     >
-      <div className="flex gap-4">
+      <div className="w-full flex gap-4">
         <div className={`shrink-0 ${iconBgColor} w-14 h-14 flex items-center justify-center rounded-full`}>{icon}</div>
         <div className="min-w-0 flex-1">
           <h4 className="line-clamp-2 font-medium text-base text-gray-01 lg:line-clamp-1">{title}</h4>

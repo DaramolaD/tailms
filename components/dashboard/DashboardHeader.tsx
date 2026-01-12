@@ -5,16 +5,17 @@ import { useState } from "react";
 import { useMobileMenu } from "./MobileMenuContext";
 
 interface DashboardHeaderProps {
-  user: {
-    name: string;
-    role: string;
-    avatar?: string;
-  };
   searchPlaceholder?: string;
 }
 
+const user = {
+  name: "John Johnson",
+  role: "Student",
+  avatar: "/images/avatar.png",
+};
+
 export default function DashboardHeader({
-  user,
+  // user,
   searchPlaceholder = "Search courses, assignments & resources",
 }: DashboardHeaderProps) {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
