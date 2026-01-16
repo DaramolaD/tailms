@@ -2,21 +2,17 @@ import React from "react";
 import Image from "next/image";
 import coursePlaceholder from "@/public/images/Courses.png";
 
-interface CourseCardGridProps {
+interface CompletedCourseCardProps {
   title: string;
   description: string;
-  progress: number;
-  thumbnail?: string;
   onClick?: () => void;
 }
 
-export default function CourseCardGrid({
+export default function CompletedCourseCard({
   title,
   description,
-  progress,
-  thumbnail,
   onClick,
-}: CourseCardGridProps) {
+}: CompletedCourseCardProps) {
   return (
     <div
       className="cursor-pointer overflow-hidden rounded-lg bg-white shadow-sm transition-shadow hover:shadow-md"
@@ -35,26 +31,28 @@ export default function CourseCardGrid({
 
       {/* Course Info */}
       <div className="p-4">
-        <div className="grid gap-1">
+        <div className="grid gap-1 mb-4">
           {/* Title */}
-          <h3 className="mb-2 text-sm font-medium text-gray-01 line-clamp-1 overflow-hidden">{title}</h3>
+          <h3 className="text-sm font-medium text-gray-01 line-clamp-1 overflow-hidden">{title}</h3>
 
           {/* Description */}
-          <p className="mb-4 text-sm font-normal text-gray-03 line-clamp-2 overflow-hidden">{description}</p>
+          <p className="text-sm font-normal text-gray-03 line-clamp-2 overflow-hidden">{description}</p>
         </div>
 
-        {/* Progress Bar and Text */}
+        {/* Completed Status */}
         <div className="space-y-2 w-full flex flex-col items-end">
           <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
             <div
               className="h-full bg-orange-500 transition-all"
-              style={{ width: `${progress}%` }}
+              style={{ width: "100%" }}
             ></div>
           </div>
-          <p className="text-sm font-normal text-gray-02 w-fit text-left">{progress}% completed</p>
+          <div className="flex items-center justify-between w-full">
+            <span className="text-sm font-normal text-gray-02">Completed</span>
+            <span className="text-sm font-normal text-gray-02">100%</span>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
