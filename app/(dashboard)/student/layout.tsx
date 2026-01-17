@@ -13,11 +13,12 @@ export default function StudentLayout({
 }) {
   const pathname = usePathname();
   
-  // Exclude lesson pages from the dashboard layout
+  // Exclude lesson pages and quiz activity pages from the dashboard layout
   const isLessonPage = pathname?.includes("/lesson");
+  const isQuizActivityPage = pathname?.includes("/quiz/") && pathname?.split("/quiz/").length > 1 && pathname?.split("/quiz/")[1] !== "";
 
-  if (isLessonPage) {
-    // Return children directly without dashboard layout for lesson pages
+  if (isLessonPage || isQuizActivityPage) {
+    // Return children directly without dashboard layout for lesson and quiz activity pages
     return <>{children}</>;
   }
 
