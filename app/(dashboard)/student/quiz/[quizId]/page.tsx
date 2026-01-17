@@ -212,16 +212,19 @@ export default function QuizActivityPage() {
     };
 
     const handleConfirmSubmit = () => {
-        // Handle quiz submission
+        // Handle quiz submission - navigate to quiz list
         console.log("Submitting quiz with answers:", answers);
-        // Mark quiz as submitted to show correct/incorrect answers
         setIsSubmitted(true);
         setShowConfirmModal(false);
-        setShowSuccessModal(true);
+        
+        // Navigate to quiz list after completing the quiz
+        setTimeout(() => {
+            router.push("/student/quiz");
+        }, 500);
     };
 
     const handleCompleteQuiz = () => {
-        // Navigate to quiz list after success
+        // Navigate to quiz list after success (if user clicks Complete button)
         setShowSuccessModal(false);
         router.push("/student/quiz");
     };
@@ -331,29 +334,39 @@ export default function QuizActivityPage() {
                                             const isSelected = selectedAnswer === option;
                                             const isCorrect = isAnswerCorrect(currentQuestion, option);
                                             const isIncorrect = isSelected && !isCorrect;
+                                            const isAnswered = isQuestionAnswered(currentQuestion);
 
-                                            // Before submission: only show selected answer with orange
-                                            // After submission: show correct/incorrect with green/red
+                                            // Show immediate feedback after selecting an answer
                                             let circleColor = "bg-gray-400";
                                             let bgColor = "bg-white";
                                             let borderColor = "border-gray-200";
                                             let textColor = "text-gray-900";
 
-                                            if (isSubmitted) {
-                                                // After submission: show correct/incorrect answers
+                                            if (isAnswered) {
+                                                // Show correct/incorrect immediately after answering
                                                 if (isCorrect) {
+                                                    // Correct answer - show green
                                                     circleColor = "bg-green-500";
                                                     bgColor = "bg-green-50";
                                                     borderColor = "border-green-500";
                                                     textColor = "text-green-700";
                                                 } else if (isSelected && isIncorrect) {
+                                                    // Selected incorrect answer - show red
                                                     circleColor = "bg-red-500";
                                                     bgColor = "bg-red-50";
                                                     borderColor = "border-red-500";
                                                     textColor = "text-red-700";
+                                                } else if (isSelected) {
+                                                    // Selected but checking if correct/incorrect
+                                                    if (isCorrect) {
+                                                        circleColor = "bg-green-500";
+                                                        bgColor = "bg-green-50";
+                                                        borderColor = "border-green-500";
+                                                        textColor = "text-green-700";
+                                                    }
                                                 }
                                             } else {
-                                                // Before submission: only show selected answer
+                                                // Not answered yet - show selected with orange
                                                 if (isSelected) {
                                                     circleColor = "bg-gray-400";
                                                     bgColor = "bg-orange-50";
@@ -365,8 +378,8 @@ export default function QuizActivityPage() {
                                             return (
                                                 <div
                                                     key={index}
-                                                    className={`w-full text-left p-4 rounded-lg border-2 transition-colors ${!isSubmitted ? "cursor-pointer" : "cursor-default"} flex items-center gap-3 ${bgColor} ${borderColor} ${textColor}`}
-                                                    onClick={() => !isSubmitted && handleAnswerSelect(option)}
+                                                    className={`w-full text-left p-4 rounded-lg border-2 transition-colors ${!isAnswered ? "cursor-pointer" : "cursor-default"} flex items-center gap-3 ${bgColor} ${borderColor} ${textColor}`}
+                                                    onClick={() => !isAnswered && handleAnswerSelect(option)}
                                                 >
                                                     <div className={`w-8 h-8 ${circleColor} rounded-full flex items-center justify-center shrink-0`}>
                                                         <span className="text-white font-bold text-sm">
@@ -381,39 +394,15 @@ export default function QuizActivityPage() {
                                         })}
                                     </div>
 
-                                    {/* Navigation Buttons */}
-                                    {!isSubmitted && (
+                                    {/* Navigation Buttons - Show after answering */}
+                                    {isQuestionAnswered(currentQuestion) && (
                                         <div className="flex items-center justify-end pt-4 border-t border-gray-200">
-                                            <button
-                                                onClick={handleNext}
-                                                disabled={currentQuestion === quizData.totalQuestions - 1 || !isQuestionAnswered(currentQuestion)}
-                                                className={`px-6 py-2 rounded-lg text-sm font-medium transition-colors ${currentQuestion === quizData.totalQuestions - 1 || !isQuestionAnswered(currentQuestion)
-                                                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                                    : "bg-orange-500 text-white hover:bg-orange-600"
-                                                    }`}
-                                            >
-                                                Next
-                                            </button>
-                                        </div>
-                                    )}
-                                    {isSubmitted && (
-                                        <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                                            <button
-                                                onClick={handlePrevious}
-                                                disabled={currentQuestion === 0}
-                                                className={`px-6 py-2 rounded-lg text-sm font-medium transition-colors ${currentQuestion === 0
-                                                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                                                    }`}
-                                            >
-                                                Previous
-                                            </button>
                                             <button
                                                 onClick={handleNext}
                                                 disabled={currentQuestion === quizData.totalQuestions - 1}
                                                 className={`px-6 py-2 rounded-lg text-sm font-medium transition-colors ${currentQuestion === quizData.totalQuestions - 1
                                                     ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                                    : "bg-orange-500 text-white hover:bg-orange-600"
                                                     }`}
                                             >
                                                 Next
@@ -444,28 +433,22 @@ export default function QuizActivityPage() {
 
                                                     let buttonClass = "w-10 h-10 rounded-lg text-sm font-medium transition-colors ";
 
-                                                    if (isSubmitted) {
-                                                        // After submission: show correct/incorrect status
-                                                        if (isCurrent) {
-                                                            buttonClass += "bg-red-500 text-white";
-                                                        } else if (status === "correct") {
+                                                    // Show correct/incorrect status immediately after answering
+                                                    if (isCurrent) {
+                                                        buttonClass += "bg-orange-500 text-white";
+                                                    } else if (isQuestionAnswered(index)) {
+                                                        // Show correct (green) or incorrect (red) status
+                                                        if (status === "correct") {
                                                             buttonClass += "bg-green-500 text-white hover:bg-green-600";
                                                         } else if (status === "incorrect") {
                                                             buttonClass += "bg-red-500 text-white hover:bg-red-600";
                                                         } else {
-                                                            buttonClass += "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50";
+                                                            // Answered but status unknown (shouldn't happen)
+                                                            buttonClass += "bg-gray-100 text-gray-700 hover:bg-gray-200";
                                                         }
                                                     } else {
-                                                        // Before submission: show current question, answered questions
-                                                        if (isCurrent) {
-                                                            buttonClass += "bg-orange-500 text-white";
-                                                        } else if (isQuestionAnswered(index)) {
-                                                            // Answered but not yet submitted - show with light gray to indicate answered
-                                                            buttonClass += "bg-gray-100 text-gray-700 hover:bg-gray-200";
-                                                        } else {
-                                                            // Unanswered questions
-                                                            buttonClass += "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50";
-                                                        }
+                                                        // Unanswered questions
+                                                        buttonClass += "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50";
                                                     }
 
                                                     return (
@@ -482,16 +465,18 @@ export default function QuizActivityPage() {
                                         </div>
                                     </div>
 
-                                    {/* Submit/Finish Button */}
-                                    <div className="p-6 pt-0">
-                                        <button
-                                            onClick={handleSubmitClick}
-                                            disabled={isSubmitted || !isQuestionAnswered(currentQuestion)}
-                                            className={`w-full bg-orange-500 text-white rounded-lg px-6 py-3 font-bold hover:bg-orange-600 transition-colors ${isSubmitted || !isQuestionAnswered(currentQuestion) ? "opacity-50 cursor-not-allowed" : ""}`}
-                                        >
-                                            {currentQuestion === quizData.totalQuestions - 1 ? "Finish" : "Submit"}
-                                        </button>
-                                    </div>
+                                    {/* Finish Button - Only show on last question */}
+                                    {currentQuestion === quizData.totalQuestions - 1 && (
+                                        <div className="p-6 pt-0">
+                                            <button
+                                                onClick={handleSubmitClick}
+                                                disabled={!isQuestionAnswered(currentQuestion)}
+                                                className={`w-full bg-orange-500 text-white rounded-lg px-6 py-3 font-bold hover:bg-orange-600 transition-colors ${!isQuestionAnswered(currentQuestion) ? "opacity-50 cursor-not-allowed" : ""}`}
+                                            >
+                                                Finish
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
