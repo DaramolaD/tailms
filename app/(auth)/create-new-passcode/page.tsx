@@ -11,7 +11,7 @@ export default function CreateNewPasscodePage() {
   });
   const [showNewPasscode, setShowNewPasscode] = useState(false);
   const [showConfirmPasscode, setShowConfirmPasscode] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -29,7 +29,7 @@ export default function CreateNewPasscodePage() {
   return (
     <div className="flex min-h-screen">
       {/* Left Column - Orange background with logo */}
-      <div className="hidden w-2/5 bg-orange-100 lg:flex lg:items-center lg:justify-center">
+      <div className="hidden h-screen w-2/5 bg-orange-100 lg:flex lg:items-center lg:justify-center lg:fixed">
         <div className="relative">
           {/* Logo - Using logoBig.svg */}
           <Image
@@ -44,8 +44,8 @@ export default function CreateNewPasscodePage() {
       </div>
 
       {/* Right Column - White background with create passcode form */}
-      <div className="flex w-full flex-col items-center justify-center bg-white px-6 py-12 lg:w-3/5">
-        <div className="mx-auto w-full max-w-md">
+      <div className="flex w-full flex-col items-center justify-center bg-white px-6 pb-12 lg:ml-[40%] lg:w-3/5 lg:overflow-y-auto lg:h-screen">
+        <div className="w-full max-w-md">
           {!isSuccess ? (
             <>
               {/* Back Link */}
@@ -70,7 +70,7 @@ export default function CreateNewPasscodePage() {
               </Link>
 
               {/* Header */}
-              <div className="mb-8">
+              <div className="mb-8 pt-16 lg:pt-6">
                 <h1 className="mb-2 text-3xl font-bold text-gray-800">
                   Create new passcode
                 </h1>
@@ -117,7 +117,13 @@ export default function CreateNewPasscodePage() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                       />
                     </svg>
                   ) : (
@@ -131,13 +137,7 @@ export default function CreateNewPasscodePage() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
                       />
                     </svg>
                   )}
@@ -182,7 +182,13 @@ export default function CreateNewPasscodePage() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                       />
                     </svg>
                   ) : (
@@ -196,13 +202,7 @@ export default function CreateNewPasscodePage() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
                       />
                     </svg>
                   )}
@@ -221,7 +221,7 @@ export default function CreateNewPasscodePage() {
             </>
           ) : (
             /* Success State */
-            <div className="flex flex-col items-center text-center">
+            <div className="flex flex-col items-center justify-center text-center pt-16 lg:pt-6">
               {/* Success Icon with Confetti */}
               <div className="relative mb-6">
                 {/* Success icon from icons folder */}

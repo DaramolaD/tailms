@@ -4,11 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function SignUpPage() {
+export default function AdminSignUpPage() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    studentId: "",
     dateOfBirth: "",
     passcode: "",
     confirmPasscode: "",
@@ -51,7 +50,7 @@ export default function SignUpPage() {
           {/* Header */}
           <div className="mb-8 pt-16 lg:pt-[400px]">
             <h1 className="mb-2 text-3xl font-bold text-gray-800">
-              Create your account 🚀
+              Create admin account 🚀
             </h1>
             <p className="text-sm text-gray-600">
               Lorem ipsum dolor sit amet consectetur. Aliquam nunc ipsum senectus
@@ -95,25 +94,6 @@ export default function SignUpPage() {
                 value={formData.lastName}
                 onChange={handleChange}
                 placeholder="Enter your last name"
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
-              />
-            </div>
-
-            {/* Student ID Field */}
-            <div>
-              <label
-                htmlFor="studentId"
-                className="mb-2 block text-sm font-medium text-gray-800"
-              >
-                Student ID
-              </label>
-              <input
-                type="text"
-                id="studentId"
-                name="studentId"
-                value={formData.studentId}
-                onChange={handleChange}
-                placeholder="Enter your student ID"
                 className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
               />
             </div>
@@ -288,7 +268,7 @@ export default function SignUpPage() {
             <p className="text-sm text-gray-600">
               Have an account?{" "}
               <Link
-                href="/sign-in"
+                href="/sign-in?role=admin"
                 className="font-medium text-gray-800 hover:text-orange-600"
               >
                 Sign in

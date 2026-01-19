@@ -19,7 +19,7 @@ export default function ResetPasscodePage() {
   return (
     <div className="flex min-h-screen">
       {/* Left Column - Orange background with logo */}
-      <div className="hidden w-2/5 bg-orange-100 lg:flex lg:items-center lg:justify-center">
+      <div className="hidden h-screen w-2/5 bg-orange-100 lg:flex lg:items-center lg:justify-center lg:fixed">
         <div className="relative">
           {/* Logo - Using logoBig.svg */}
           <Image
@@ -34,8 +34,8 @@ export default function ResetPasscodePage() {
       </div>
 
       {/* Right Column - White background with reset form */}
-      <div className="flex w-full flex-col bg-white px-6 py-12 lg:w-3/5">
-        <div className="mx-auto w-full max-w-md">
+      <div className="flex w-full flex-col items-center justify-center bg-white px-6 pb-12 lg:ml-[40%] lg:w-3/5 lg:overflow-y-auto lg:h-screen">
+        <div className="w-full max-w-md">
           {/* Back Link */}
           <Link
             href="/sign-in"
@@ -58,7 +58,7 @@ export default function ResetPasscodePage() {
           </Link>
 
           {/* Header */}
-          <div className="mb-8">
+          <div className="mb-8 pt-16 lg:pt-6">
             <h1 className="mb-2 text-3xl font-bold text-gray-800">
               Reset my passcode
             </h1>
