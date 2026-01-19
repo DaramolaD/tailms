@@ -6,6 +6,9 @@ interface SummaryCardProps {
   icon: React.ReactNode;
   bgColor?: string;
   iconBgColor?: string;
+  status?: string;
+  textColor?: string;
+  titleColor?: string;
 }
 
 export default function SummaryCard({
@@ -14,6 +17,9 @@ export default function SummaryCard({
   icon,
   bgColor = "bg-orange-100",
   iconBgColor = "bg-orange-600",
+  status,
+  textColor = "text-gray-900",
+  titleColor = "text-gray-600",
 }: SummaryCardProps) {
   return (
     <div
@@ -22,8 +28,17 @@ export default function SummaryCard({
       <div className="flex gap-6 items-start">
         <div className={`shrink-0 ${iconBgColor} w-14 h-14 flex items-center justify-center rounded-lg`}>{icon}</div>
         <div className="grid gap-1">
-          <p className="text-gray-01 text-base font-medium">{value}</p>
-          <p className="text-sm font-medium text-gray-600">{title}</p>
+          {status ? (
+            <>
+              <p className={`${textColor} text-base font-medium`}>{value} {title}</p>
+              <p className={`text-sm font-medium ${titleColor}`}>{status}</p>
+            </>
+          ) : (
+            <>
+              <p className={`${textColor} text-base font-medium`}>{value}</p>
+              <p className={`text-sm font-medium ${titleColor}`}>{title}</p>
+            </>
+          )}
         </div>
       </div>
     </div>

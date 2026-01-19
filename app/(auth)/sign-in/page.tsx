@@ -12,6 +12,7 @@ function SignInForm() {
   const role = searchParams.get("role") || "student"; // Default to student if no role specified
   const [showPassword, setShowPassword] = useState(false);
   const [studentId, setStudentId] = useState("");
+  const [adminId, setAdminId] = useState("");
   const [passcode, setPasscode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,7 +20,8 @@ function SignInForm() {
     e.preventDefault();
     
     // Basic validation
-    if (!studentId || !passcode) {
+    const identifier = role === "student" ? studentId : adminId;
+    if (!identifier || !passcode) {
       toast.error("Please fill in all fields");
       return;
     }
@@ -31,9 +33,13 @@ function SignInForm() {
       setIsLoading(false);
       toast.success("Login successful! Welcome back!");
       
-      // Redirect to student dashboard after a brief delay
+      // Redirect to appropriate dashboard based on role
       setTimeout(() => {
-        router.push("/student");
+        if (role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/student");
+        }
       }, 500);
     }, 1000);
   };
@@ -74,23 +80,45 @@ function SignInForm() {
 
           {/* Login Form */}
           <form className="space-y-6" onSubmit={handleSubmit}>
-            {/* Student ID Field */}
-            <div>
-              <label
-                htmlFor="studentId"
-                className="mb-2 block text-sm font-medium text-gray-800"
-              >
-                Student ID
-              </label>
-              <input
-                type="text"
-                id="studentId"
-                value={studentId}
-                onChange={(e) => setStudentId(e.target.value)}
-                placeholder="Enter your student id"
-                className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
-              />
-            </div>
+            {/* Student ID Field - Only show for students */}
+            {role === "student" && (
+              <div>
+                <label
+                  htmlFor="studentId"
+                  className="mb-2 block text-sm font-medium text-gray-800"
+                >
+                  Student ID
+                </label>
+                <input
+                  type="text"
+                  id="studentId"
+                  value={studentId}
+                  onChange={(e) => setStudentId(e.target.value)}
+                  placeholder="Enter your student id"
+                  className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
+                />
+              </div>
+            )}
+
+            {/* Admin ID Field - Only show for admins */}
+            {role === "admin" && (
+              <div>
+                <label
+                  htmlFor="adminId"
+                  className="mb-2 block text-sm font-medium text-gray-800"
+                >
+                  Admin ID
+                </label>
+                <input
+                  type="text"
+                  id="adminId"
+                  value={adminId}
+                  onChange={(e) => setAdminId(e.target.value)}
+                  placeholder="Enter your admin id"
+                  className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-400/20"
+                />
+              </div>
+            )}
 
             {/* Passcode Field */}
             <div>
@@ -126,7 +154,13 @@ function SignInForm() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                       />
                     </svg>
                   ) : (
@@ -140,13 +174,7 @@ function SignInForm() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
                       />
                     </svg>
                   )}

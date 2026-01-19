@@ -6,16 +6,21 @@ import { useMobileMenu } from "./MobileMenuContext";
 
 interface DashboardHeaderProps {
   searchPlaceholder?: string;
+  user?: {
+    name: string;
+    role: string;
+    avatar?: string;
+  };
 }
 
-const user = {
+const defaultUser = {
   name: "John Johnson",
   role: "Student",
   avatar: "/images/avatar.png",
 };
 
 export default function DashboardHeader({
-  // user,
+  user = defaultUser,
   searchPlaceholder = "Search courses, assignments & resources",
 }: DashboardHeaderProps) {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
